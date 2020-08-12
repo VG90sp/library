@@ -2,22 +2,29 @@ const books = [];
 
 $(document).ready(function(){
     $("#modal-add-book-ok").on("click", addBookToLibrary);
+    $("#modal-add-book").on("hide.bs.modal", clearBookId);
 });
+
+function clearBookId() {
+    $("#modal-add-book-ok").removeAttr("data");
+}
 
 function addBookToLibrary() {
     const formData = $("form").serializeArray();
-    const newArray = [];
+    const newBook = {};
+
     for (key in formData) {
-        newArray[formData[key]["name"]] = formData[key]["value"];
+        newBook[formData[key]["name"]] = formData[key]["value"];
     }
     const data = $(this).attr("data");
+
     if (data === undefined) {
-        const randomArticle = Math.round(Math.random()*100000);
-        books[randomArticle] = newArray;
-        drawBook(randomArticle);
+        books.push(newBook);
+        const bookIndex = books.findIndex(book => book === newBook);
+        drawBook(bookIndex);
     } else {
-       books[data] = newArray;
-       drawBook(data)
+        books[data] = newBook;
+        drawBook(data)
     }
 
     $("#modal-add-book").modal("hide"); 
@@ -80,6 +87,7 @@ function drawBook(article) {
 
 function editBook() {
     const data = $(this).attr("data");
+
     //show modal
     $("#modal-add-book").modal("show");
     $("form #book-name").val(books[data]["book-name"]);
