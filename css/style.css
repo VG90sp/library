@@ -47,19 +47,12 @@ h1 {
 .book-author {
     font-size: 1.5rem;
 }
-
 button.btn.btn-warning.edit {
     background-color: red;
     margin-right: 33px;
 }
 button.btn.btn-succes.edit {
     background-color: green;
-}
-.modal-content {
-    margin-top: 25px;
-    margin-bottom: 25px;
-    display: flex;
-    justify-content: center;
 }
 h5 {
     font-size: 1rem;
